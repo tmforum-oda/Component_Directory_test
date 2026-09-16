@@ -1,0 +1,275 @@
+/* Visual language matched to the TM Forum ODA Component Directory
+   (tmforum.org/oda/directory): the same DM Sans typeface and hero gradient
+   (navy #0D0B4D to red #D91241), a floating metadata card, colour-coded
+   resource cards, and function-block colour coding on the catalog grid. */
+
+:root {
+  --oda-navy: #0d0b4d;
+  --oda-maroon: #d91241;
+  --oda-block-corecommerce: #d91241;
+  --oda-block-partymanagement: #6a3fb5;
+  --oda-block-production: #1f7a5c;
+  --oda-block-intelligencemanagement: #b5762f;
+  --oda-block-default: #3a5a9c;
+}
+
+/* Material's default page container caps out at 61rem (~976px) total,
+   shared between the two sidebars and the content column - on anything
+   wider than a laptop that leaves the actual reading/card area a few
+   hundred pixels wide with huge dead margins either side. Widen it so the
+   resource/catalog card grids get to use the screen instead of wrapping
+   into a single narrow column. */
+.md-grid {
+  max-width: 100rem;
+}
+
+/* ---- Hero banner ---- */
+.oda-hero {
+  margin: -1.2rem -1.2rem 1.5rem -1.2rem;
+  padding: 2rem 1.5rem 2.5rem 1.5rem;
+  background: linear-gradient(100deg, var(--oda-navy) 0%, var(--oda-navy) 55%, var(--oda-maroon) 100%);
+  color: #fff;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+.oda-hero h1 {
+  color: #fff;
+  margin: 0.2rem 0 0.8rem 0;
+}
+.oda-breadcrumb {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  opacity: 0.75;
+  margin: 0;
+}
+.oda-hero-desc {
+  max-width: 46rem;
+  font-size: 1.02rem;
+  opacity: 0.92;
+}
+
+/* ---- Metadata card ---- */
+.oda-meta-card {
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+  padding: 0.25rem 1.25rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  margin-bottom: 1.5rem;
+}
+.oda-meta-card table {
+  width: 100%;
+}
+.oda-meta-card table th,
+.oda-meta-card table td {
+  border: none !important;
+  padding: 0.5rem 0.25rem !important;
+}
+.oda-meta-card table tr {
+  background: transparent !important;
+}
+.oda-meta-card table th {
+  text-align: left;
+  width: 40%;
+  color: var(--md-default-fg-color--light);
+  font-weight: 600;
+}
+
+/* ---- Component resource cards ---- */
+.oda-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 2rem 0;
+}
+.oda-resource-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.4rem;
+  padding: 0.9rem 1rem;
+}
+.oda-resource-icon {
+  flex: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #fff;
+  background: var(--oda-block-default);
+}
+.oda-resource-card.oda-resource-yaml .oda-resource-icon { background: #4c8c3c; }
+.oda-resource-card.oda-resource-pdf .oda-resource-icon { background: var(--oda-maroon); }
+.oda-resource-card.oda-resource-conformance .oda-resource-icon { background: var(--oda-navy); }
+.oda-resource-card.oda-resource-ctk .oda-resource-icon { background: #2f6fb5; }
+.oda-resource-card.oda-resource-ri .oda-resource-icon { background: #555; }
+.oda-resource-body { flex: 1; min-width: 0; }
+.oda-resource-title {
+  display: block;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.3rem;
+}
+.oda-resource-card a.md-button {
+  padding: 0.25rem 0.8rem;
+}
+
+/* ---- API groups ---- */
+.oda-api-group-label {
+  font-weight: 600;
+  margin: 0.6rem 0 0.3rem 0;
+}
+.oda-api-list {
+  list-style: none;
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+.oda-api-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+.oda-api-id {
+  font-family: var(--md-code-font);
+  font-weight: 600;
+  color: var(--oda-navy);
+  flex: none;
+}
+[data-md-color-scheme="slate"] .oda-api-id { color: #9fb4ff; }
+.oda-api-name { flex: 1; }
+.oda-api-empty { opacity: 0.7; font-style: italic; }
+
+/* ---- Badge chips (component ID on the catalog grid) ---- */
+.oda-chip {
+  display: inline-block;
+  flex: none;
+  white-space: nowrap;
+  font-family: var(--md-code-font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+}
+
+/* ---- Catalog grid on the home page ---- */
+.oda-block-dot {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-bottom: 0.15rem;
+}
+.oda-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.75rem;
+  margin: 0.75rem 0 1.5rem 0;
+}
+/* python-markdown wraps each raw <a> card in a <p> since <a> is an inline
+   tag; unwrap it so the card itself is the grid item instead of a
+   full-width paragraph containing it. */
+.oda-catalog-grid > p {
+  display: contents;
+}
+.oda-catalog-card {
+  display: block;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-left: 0.3rem solid currentColor;
+  border-radius: 0.3rem;
+  padding: 0.75rem 0.9rem;
+  text-decoration: none !important;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.oda-catalog-card-title,
+.oda-catalog-card-meta {
+  color: var(--md-default-fg-color);
+}
+.oda-catalog-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+.oda-catalog-card-title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.oda-catalog-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* function-block colour coding, applied inline via style attribute too,
+   these classes cover the known values so borders/dots don't need inline styles */
+.oda-block-corecommerce { color: var(--oda-block-corecommerce) !important; }
+.oda-block-partymanagement { color: var(--oda-block-partymanagement) !important; }
+.oda-block-production { color: var(--oda-block-production) !important; }
+.oda-block-intelligencemanagement { color: var(--oda-block-intelligencemanagement) !important; }
+
+/* ---- Catalog toolbar + "Certifiable components" switch ---- */
+.oda-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0 1.25rem 0;
+}
+.oda-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.85rem;
+}
+.oda-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.oda-switch-track {
+  position: relative;
+  flex: none;
+  width: 2.6rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--md-default-fg-color--lighter);
+  transition: background 0.15s ease;
+}
+.oda-switch input:checked + .oda-switch-track {
+  background: var(--oda-navy);
+}
+.oda-switch-thumb {
+  position: absolute;
+  top: 0.15rem;
+  left: 0.15rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease;
+}
+.oda-switch input:checked + .oda-switch-track .oda-switch-thumb {
+  transform: translateX(1.1rem);
+}
+.oda-certifiable-badge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #1f7a5c;
+}
