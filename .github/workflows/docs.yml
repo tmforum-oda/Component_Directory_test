@@ -2,7 +2,7 @@ name: Build and deploy component catalog
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
   workflow_dispatch:
 

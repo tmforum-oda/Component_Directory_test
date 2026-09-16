@@ -33,5 +33,5 @@ before running `generate.py`.
 
 `.github/workflows/docs.yml` checks out this repo and the data repo, runs
 the same two steps, and publishes the built site to GitHub Pages on every
-push to `main`. GitHub Pages must be enabled once in this repository's
+push to `master`. GitHub Pages must be enabled once in this repository's
 Settings > Pages, with **Source** set to **GitHub Actions**.
