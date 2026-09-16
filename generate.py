@@ -72,6 +72,23 @@ FUNCTIONAL_BLOCK_LABELS = {
     "EngagementManagement": "Engagement Management",
 }
 
+# Left-to-right column order on tmforum.org/oda/directory/components-map
+# (Canvas Operator omitted - that's canvas operators, not components).
+# Anything we have that isn't one of their categories (Intelligence
+# Management doesn't exist as its own block there) is appended after.
+FUNCTIONAL_BLOCK_ORDER = [
+    "Engagement Management",
+    "Party Management",
+    "Core Commerce Management",
+    "Production",
+]
+
+
+def ordered_block_labels(labels) -> list:
+    known = [b for b in FUNCTIONAL_BLOCK_ORDER if b in labels]
+    extra = sorted(b for b in labels if b not in FUNCTIONAL_BLOCK_ORDER)
+    return known + extra
+
 
 def slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]", "", value.lower())
@@ -340,6 +357,19 @@ def render_component_page(component_dir: Path, spec: dict, assets: dict) -> str:
     return "\n".join(parts) + "\n"
 
 
+def panel_flex_basis(count: int) -> str:
+    """Wider panels for blocks with more components, narrower for fewer -
+    matching how tmforum.org/oda/directory/components-map gives Party
+    Management (many items) far more width than Canvas Operator (few)
+    instead of forcing every block to the same column width."""
+    cols = 1 if count <= 4 else 2 if count <= 9 else 3
+    card = 220
+    gap = 16
+    padding = 48  # 24px left + right panel padding
+    width = cols * card + (cols - 1) * gap + padding
+    return f"{width}px"
+
+
 def render_index(catalog: list) -> str:
     blocks = {}
     for entry in catalog:
@@ -371,17 +401,20 @@ Certifiable components only
 </div>
 """
 
-    lines = [hero, toolbar]
-    for block in sorted(blocks):
+    lines = [hero, toolbar, '<div class="oda-blocks-row" markdown="1">']
+    for block in ordered_block_labels(blocks.keys()):
         css_class = block_css_class(block)
+        basis = panel_flex_basis(len(blocks[block]))
+        lines.append("")
+        lines.append(f'<div class="oda-block-column {css_class}" style="flex-basis:{basis}" markdown="1">')
         lines.append(f'## <span class="oda-block-dot {css_class}" style="background:currentColor"></span> {block}')
         lines.append("")
-        lines.append('<div class="oda-catalog-grid" markdown="1">')
+        lines.append('<div class="oda-block-card-list" markdown="1">')
         for entry in sorted(blocks[block], key=lambda e: e["id"]):
             certifiable_badge = '<span class="oda-certifiable-badge">Certifiable</span>' if entry["certifiable"] else ""
             # Blank lines before/after are required: without them python-markdown
             # merges consecutive inline `<a>` tags into a single <p>, which
-            # leaves the grid with just one child instead of one per card.
+            # leaves the list with just one child instead of one per card.
             lines.append("")
             lines.append(
                 f'<a class="oda-catalog-card {css_class}" href="components/{entry["slug"]}/" '
@@ -396,7 +429,9 @@ Certifiable components only
             )
             lines.append("")
         lines.append("</div>")
-        lines.append("")
+        lines.append("</div>")
+    lines.append("")
+    lines.append("</div>")
     return "\n".join(lines) + "\n"
 
 
