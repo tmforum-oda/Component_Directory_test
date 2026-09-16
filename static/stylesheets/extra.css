@@ -206,9 +206,16 @@
 .oda-catalog-card-meta {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
   font-size: 0.75rem;
   opacity: 0.8;
+}
+/* Never let version/status/badge text wrap mid-word inside its own pill -
+   the row itself may wrap, but each piece stays intact. */
+.oda-catalog-card-meta > * {
+  white-space: nowrap;
+  flex: none;
 }
 
 /* function-block colour coding, applied inline via style attribute too,
