@@ -166,10 +166,14 @@
   border: 1px solid currentColor;
 }
 
-/* ---- Catalog columns on the home page ----
-   One column per ODA Function Block, side by side like the "Components
-   Map" on tmforum.org/oda/directory/components-map, instead of one
-   full-width section per block. */
+/* ---- Catalog panels on the home page ----
+   Matched to the "Components Map" on
+   tmforum.org/oda/directory/components-map: each ODA Function Block is a
+   rounded, tinted panel (their exact rgba(13,37,72,0.1) navy wash, 24px
+   corners, 32/24px padding) holding a small internal card grid, and panels
+   sit in a wrapping flex row sized by how many components they hold - a
+   block with more components claims a wider panel with more internal
+   columns, rather than every block getting an equal-width column. */
 .oda-block-dot {
   display: inline-block;
   width: 0.7rem;
@@ -179,43 +183,49 @@
   margin-bottom: 0.15rem;
 }
 .oda-blocks-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: start;
-  gap: 0 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem;
   margin: 0.75rem 0 1.5rem 0;
 }
-@media screen and (min-width: 760px) {
-  .oda-blocks-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.oda-block-column {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: rgba(13, 37, 72, 0.1);
+  border-radius: 1.5rem;
+  padding: 2rem 1.5rem;
 }
-@media screen and (min-width: 1900px) {
-  .oda-blocks-row {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
+[data-md-color-scheme="slate"] .oda-block-column {
+  background: rgba(255, 255, 255, 0.06);
 }
 .oda-block-column h2 {
-  margin-top: 1.5rem;
+  margin-top: 0;
+}
+@media screen and (max-width: 700px) {
+  .oda-block-column {
+    flex-basis: 100% !important;
+  }
 }
 .oda-block-card-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
 }
 /* python-markdown wraps each raw <a> card in a <p> since <a> is an inline
-   tag; unwrap it so the card itself is the flex item instead of a
+   tag; unwrap it so the card itself is the grid item instead of a
    full-width paragraph containing it. */
 .oda-block-card-list > p {
   display: contents;
 }
 .oda-catalog-card {
   display: block;
-  border: 1px solid var(--md-default-fg-color--lightest);
-  border-left: 0.3rem solid currentColor;
-  border-radius: 0.3rem;
-  padding: 0.75rem 0.9rem;
+  background: var(--md-default-bg-color);
+  border-left: 0.25rem solid currentColor;
+  border-radius: 0.625rem;
+  padding: 0.75rem;
   text-decoration: none !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 .oda-catalog-card-title,
