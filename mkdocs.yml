@@ -1,0 +1,55 @@
+site_name: TM Forum ODA Component Catalog
+site_description: Published Open Digital Architecture (ODA) component specifications, conformance profiles and CTKs
+site_url: https://tmforum-oda.github.io/Component_Directory_test/
+repo_url: https://github.com/tmforum-oda/Component_Directory_test
+repo_name: tmforum-oda/Component_Directory_test
+edit_uri: ""
+docs_dir: docs
+
+theme:
+  name: material
+  font:
+    text: DM Sans
+    code: Roboto Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - navigation.indexes
+    - navigation.sections
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+  - awesome-pages
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/certifiable-toggle.js
+
+markdown_extensions:
+  - tables
+  - md_in_html
+  - attr_list
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
