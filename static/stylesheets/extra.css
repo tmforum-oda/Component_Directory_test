@@ -166,7 +166,10 @@
   border: 1px solid currentColor;
 }
 
-/* ---- Catalog grid on the home page ---- */
+/* ---- Catalog columns on the home page ----
+   One column per ODA Function Block, side by side like the "Components
+   Map" on tmforum.org/oda/directory/components-map, instead of one
+   full-width section per block. */
 .oda-block-dot {
   display: inline-block;
   width: 0.7rem;
@@ -175,16 +178,35 @@
   vertical-align: middle;
   margin-bottom: 0.15rem;
 }
-.oda-catalog-grid {
+.oda-blocks-row {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 0 1.5rem;
   margin: 0.75rem 0 1.5rem 0;
 }
+@media screen and (min-width: 760px) {
+  .oda-blocks-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media screen and (min-width: 1900px) {
+  .oda-blocks-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.oda-block-column h2 {
+  margin-top: 1.5rem;
+}
+.oda-block-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
 /* python-markdown wraps each raw <a> card in a <p> since <a> is an inline
-   tag; unwrap it so the card itself is the grid item instead of a
+   tag; unwrap it so the card itself is the flex item instead of a
    full-width paragraph containing it. */
-.oda-catalog-grid > p {
+.oda-block-card-list > p {
   display: contents;
 }
 .oda-catalog-card {

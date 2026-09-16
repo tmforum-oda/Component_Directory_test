@@ -72,6 +72,23 @@ FUNCTIONAL_BLOCK_LABELS = {
     "EngagementManagement": "Engagement Management",
 }
 
+# Left-to-right column order on tmforum.org/oda/directory/components-map
+# (Canvas Operator omitted - that's canvas operators, not components).
+# Anything we have that isn't one of their categories (Intelligence
+# Management doesn't exist as its own block there) is appended after.
+FUNCTIONAL_BLOCK_ORDER = [
+    "Engagement Management",
+    "Party Management",
+    "Core Commerce Management",
+    "Production",
+]
+
+
+def ordered_block_labels(labels) -> list:
+    known = [b for b in FUNCTIONAL_BLOCK_ORDER if b in labels]
+    extra = sorted(b for b in labels if b not in FUNCTIONAL_BLOCK_ORDER)
+    return known + extra
+
 
 def slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]", "", value.lower())
@@ -371,17 +388,19 @@ Certifiable components only
 </div>
 """
 
-    lines = [hero, toolbar]
-    for block in sorted(blocks):
+    lines = [hero, toolbar, '<div class="oda-blocks-row" markdown="1">']
+    for block in ordered_block_labels(blocks.keys()):
         css_class = block_css_class(block)
+        lines.append("")
+        lines.append(f'<div class="oda-block-column {css_class}" markdown="1">')
         lines.append(f'## <span class="oda-block-dot {css_class}" style="background:currentColor"></span> {block}')
         lines.append("")
-        lines.append('<div class="oda-catalog-grid" markdown="1">')
+        lines.append('<div class="oda-block-card-list" markdown="1">')
         for entry in sorted(blocks[block], key=lambda e: e["id"]):
             certifiable_badge = '<span class="oda-certifiable-badge">Certifiable</span>' if entry["certifiable"] else ""
             # Blank lines before/after are required: without them python-markdown
             # merges consecutive inline `<a>` tags into a single <p>, which
-            # leaves the grid with just one child instead of one per card.
+            # leaves the list with just one child instead of one per card.
             lines.append("")
             lines.append(
                 f'<a class="oda-catalog-card {css_class}" href="components/{entry["slug"]}/" '
@@ -396,7 +415,9 @@ Certifiable components only
             )
             lines.append("")
         lines.append("</div>")
-        lines.append("")
+        lines.append("</div>")
+    lines.append("")
+    lines.append("</div>")
     return "\n".join(lines) + "\n"
 
 
