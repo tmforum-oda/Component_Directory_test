@@ -1,15 +1,21 @@
 /* Visual language matched to the TM Forum ODA Component Directory
-   (tmforum.org/oda/directory): the same DM Sans typeface and hero gradient
-   (navy #0D0B4D to red #D91241), a floating metadata card, colour-coded
-   resource cards, and function-block colour coding on the catalog grid. */
+   (tmforum.org/oda/directory): the same DM Sans typeface, hero gradient
+   (navy #0D0B4D to red #D91241), and the exact per-function-block colours
+   the live site uses for its category hexagons (--polygon-* custom
+   properties there): red for Party Management, teal for Core Commerce
+   Management, navy for Production, purple for Engagement Management. Our
+   data has one extra block (Intelligence Management) that doesn't exist
+   as its own category on the live site - given their orange, which they
+   reserve for something else, since it's unused by any block above. */
 
 :root {
   --oda-navy: #0d0b4d;
   --oda-maroon: #d91241;
-  --oda-block-corecommerce: #d91241;
-  --oda-block-partymanagement: #6a3fb5;
-  --oda-block-production: #1f7a5c;
-  --oda-block-intelligencemanagement: #b5762f;
+  --oda-block-corecommerce: #148d81;
+  --oda-block-partymanagement: #b2272c;
+  --oda-block-production: #0d2548;
+  --oda-block-engagementmanagement: #963a94;
+  --oda-block-intelligencemanagement: #dc6526;
   --oda-block-default: #3a5a9c;
 }
 
@@ -223,6 +229,7 @@
 .oda-block-corecommerce { color: var(--oda-block-corecommerce) !important; }
 .oda-block-partymanagement { color: var(--oda-block-partymanagement) !important; }
 .oda-block-production { color: var(--oda-block-production) !important; }
+.oda-block-engagementmanagement { color: var(--oda-block-engagementmanagement) !important; }
 .oda-block-intelligencemanagement { color: var(--oda-block-intelligencemanagement) !important; }
 
 /* ---- Catalog toolbar + "Certifiable components" switch ---- */
